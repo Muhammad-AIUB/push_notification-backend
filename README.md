@@ -52,7 +52,7 @@ This project demonstrates a **NestJS-based push notification system** that:
 ### 1. Clone the Repository
 
 bash
-git clone https://github.com/Muhammad-AIUB/push-notification.git
+git clone https://github.com/Muhammad-AIUB/push_notification-backend
 cd push-notification-system
 
 ### 2. Install Dependencies
