@@ -1,98 +1,123 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Push Notification System using NestJS + Bull + Redis
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Overview
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+This project demonstrates a **NestJS-based push notification system** that:
 
-## Description
+- Simulates 10 users [Can use 40000 users also]
+- Sends push notifications instantly
+- Schedules push notifications using Bull Queue + Redis
+- Displays notifications in the console (no Firebase integration)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+---
 
-## Project setup
+## Features
 
-```bash
-$ npm install
-```
+### 1. Simulated User Model
 
-## Compile and run the project
+- Simulates users with `id`, `name`, and `deviceToken`
+- Uses mock data instead of a database
 
-```bash
-# development
-$ npm run start
+### 2. Push Notification Module
 
-# watch mode
-$ npm run start:dev
+- `POST /push/send-now` — Sends message instantly to all users
+- `POST /push/schedule` — Schedules the message to be sent later using Bull
 
-# production mode
-$ npm run start:prod
-```
+## 📁 Project Structure
 
-## Run tests
+📁 push-notification-system/
+├── 📁 src/
+│ ├── 📁 push/
+│ │ ├── dto/
+│ │ │ ├── schedule.dto.ts
+│ │ │ └── send-now.dto.ts
+│ │ ├── push.controller.ts
+│ │ ├── push.service.ts
+│ │ ├── push.module.ts
+│ │ └── push.processor.ts
+│ ├── 📁 user/
+│ │ ├── user.service.ts
+│ │ └── mock-users.ts
+│ ├── app.module.ts
+│ └── main.ts
+├── 📁 queue/
+│ └── bull.config.ts
+├── .env
+├── README.md
+├── package.json
+└── tsconfig.json
 
-```bash
-# unit tests
-$ npm run test
+## 🚀 Setup Instructions
 
-# e2e tests
-$ npm run test:e2e
+### 1. Clone the Repository
 
-# test coverage
-$ npm run test:cov
-```
+bash
+git clone https://github.com/Muhammad-AIUB/push-notification.git
+cd push-notification-system
 
-## Deployment
+### 2. Install Dependencies
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+bash
+npm install
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### 3. Redis Installation (Required)
 
-```bash
-$ npm install -g mau
-$ mau deploy
-```
+Make sure Redis is installed and running locally.
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+- Ubuntu:
+  bash
+  sudo apt update && sudo apt install redis-server
 
-## Resources
+- Start Redis:
+  bash
+  redis-server
 
-Check out a few resources that may come in handy when working with NestJS:
+### 4. Start the App
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+bash
+npm run start:dev
 
-## Support
+## 🧪 API Testing (via Postman or ThunderClient)
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### 1. **Send Immediately**
 
-## Stay in touch
+- **POST** `/push/send-now`
+  json
+  {
+  "title": "Promo Alert",
+  "message": "Get 20% OFF!"
+  }
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- ✅ Console Output:
 
-## License
+[IMMEDIATE] To John: Promo Alert - Get 20% OFF!
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+### 2. **Schedule Notification**
+
+- **POST** `/push/schedule`
+  json
+  {
+  "title": "Promo Alert",
+  "message": "Get 20% OFF!",
+  "scheduleAt": "2025-04-05T17:00:00.000Z"
+  }
+
+- ✅ Console Output (at the scheduled time):
+
+[SCHEDULED] To Jane: Promo Alert - Get 20% OFF!
+
+Scheduling Logic Explaination
+
+## How does it work?
+
+When a request is made to /push/schedule:
+
+The system adds a job to the Bull queue with the name sendPush.
+
+This job contains the title, message, and scheduleAt time.
+
+In push.processor.ts, using @Processor('pushQueue') and @Process('sendPush'):
+
+When the scheduled time arrives, the job is processed automatically.
+
+Using users.forEach(), the message is shown in the console for each user.
