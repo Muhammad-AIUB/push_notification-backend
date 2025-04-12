@@ -106,6 +106,18 @@ npm run start:dev
 
 [SCHEDULED] To Jane: Promo Alert - Get 20% OFF!
 
+### 3.API's
+
+post : http://localhost:3000/push/send-now
+![API Send Now](./src/assets/api_send-now.png)
+![Console Send Now](./src/assets/console_send-now.png)
+
+post:http://localhost:3000/push/schedule
+![API Scheduled](./src/assets/api_scheduled.png)
+![Console Scheduled](./src/assets/console_scheduled.png)
+
+##
+
 Scheduling Logic Explaination
 
 ## How does it work?
